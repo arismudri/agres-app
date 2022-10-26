@@ -1,0 +1,1574 @@
+{
+	"info": {
+		"_postman_id": "0d0e1070-d84d-49e5-afc9-0472a9aa09c6",
+		"name": "Agres-Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4780804"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"john\",\r\n    \"email\": \"john@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "fail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"john\",\r\n    \"email\": \"john_gmail.com\",\r\n    \"password\": \"1234567\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:38:26 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:38:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation fail\",\n    \"data\": null,\n    \"error\": {\n        \"email\": [\n            \"The email must be a valid email address.\"\n        ],\n        \"password\": [\n            \"The password must be at least 8 characters.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"john\",\r\n    \"email\": \"john@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:38:57 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:38:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Register successfully\",\n    \"data\": {\n        \"name\": \"john\",\n        \"email\": \"john@gmail.com\",\n        \"id\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"updated_at\": \"2022-10-26T17:38:57.000000Z\",\n        \"created_at\": \"2022-10-26T17:38:57.000000Z\"\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData?.data?.token;\r",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"john@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "fail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"_john@gmail.com\",\r\n    \"password\": \"1234567\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:39:58 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:39:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation fail\",\n    \"data\": null,\n    \"error\": {\n        \"email\": [\n            \"The selected email is invalid.\"\n        ],\n        \"password\": [\n            \"The password must be at least 8 characters.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"john@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:40:20 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:40:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Login successfully\",\n    \"data\": {\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY2NjgwNjAyMCwiZXhwIjoxNjY2ODA5NjIwLCJuYmYiOjE2NjY4MDYwMjAsImp0aSI6InhEQ2Izb1dJSjMycGZvNEIiLCJzdWIiOiI1Mjk3YTM0NS02OTgxLTRkZDgtOTllNC0yZTZhMzcyZGI0NWMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ZwWOZoAB-IsoZx2GhmCweG5TZnFAGKRhOEJhVrFM6mc\"\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData?.data?.token;\r",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"{{token}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"token\": \"{{token}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/logout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:40:47 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:40:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Logout successufully\",\n    \"data\": [],\n    \"error\": null\n}"
+						},
+						{
+							"name": "fail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"token\": \"{{token}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/logout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"logout"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:44:05 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:44:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Token is invalid\",\n    \"data\": null,\n    \"error\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "user info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/user-info",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user-info"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "fail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/user-info",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"user-info"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:43:31 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:43:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Token is invalid\",\n    \"data\": null,\n    \"error\": []\n}"
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/user-info",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"user-info"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:44:42 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:44:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successfully get user info\",\n    \"data\": {\n        \"id\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"name\": \"john\",\n        \"email\": \"john@gmail.com\",\n        \"email_verified_at\": null,\n        \"created_at\": \"2022-10-26T17:38:57.000000Z\",\n        \"updated_at\": \"2022-10-26T17:38:57.000000Z\"\n    },\n    \"error\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/product",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:47:24 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:47:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "56"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successfully get all product\",\n    \"data\": [\n        {\n            \"id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n            \"name\": \"Asus ROG\",\n            \"sku\": \"p01\",\n            \"brand\": \"Asus\",\n            \"description\": \"ROG\",\n            \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n            \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n            \"deleted_by\": null,\n            \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n            \"updated_at\": \"2022-10-26T17:46:54.000000Z\",\n            \"deleted_at\": null,\n            \"variants\": [\n                {\n                    \"id\": \"88e396cb-1d97-4dfb-9db5-722a40c5a6cb\",\n                    \"name\": \"RAM 16\",\n                    \"sku\": \"p01\",\n                    \"price\": 100000,\n                    \"product_id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n                    \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                    \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                    \"deleted_by\": null,\n                    \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n                    \"updated_at\": \"2022-10-26T17:46:54.000000Z\",\n                    \"deleted_at\": null\n                }\n            ]\n        }\n    ],\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/product/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "91cdcdcf-8f0d-4073-a5fa-8479de278e06"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "91cdcdcf-8f0d-4073-a5fa-8479de278e06"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:47:39 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:47:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "55"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successfully get product\",\n    \"data\": {\n        \"id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n        \"name\": \"Asus ROG\",\n        \"sku\": \"p01\",\n        \"brand\": \"Asus\",\n        \"description\": \"ROG\",\n        \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"deleted_by\": null,\n        \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n        \"updated_at\": \"2022-10-26T17:46:54.000000Z\",\n        \"deleted_at\": null,\n        \"variants\": [\n            {\n                \"id\": \"88e396cb-1d97-4dfb-9db5-722a40c5a6cb\",\n                \"name\": \"RAM 16\",\n                \"sku\": \"p01\",\n                \"price\": 100000,\n                \"product_id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n                \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                \"deleted_by\": null,\n                \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n                \"updated_at\": \"2022-10-26T17:46:54.000000Z\",\n                \"deleted_at\": null\n            }\n        ]\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "fail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "91cdcdcf-8f0d-4073-a5fa-8479de278e06"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:52:33 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:52:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation fail\",\n    \"data\": null,\n    \"error\": {\n        \"id\": [\n            \"The selected id is invalid.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Asus ROG\",\r\n    \"sku\": \"p01\",\r\n    \"brand\": \"Asus\",\r\n    \"description\": \"ROG\",\r\n    \"variants\": [\r\n        {\r\n            \"name\": \"RAM 16\",\r\n            \"sku\": \"p01\",\r\n            \"price\": 100000\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/product",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Asus ROG\",\r\n    \"sku\": \"p01\",\r\n    \"brand\": \"Asus\",\r\n    \"description\": \"ROG\",\r\n    \"variants\": [\r\n        {\r\n            \"name\": \"RAM 16\",\r\n            \"sku\": \"p01\",\r\n            \"price\": 100000\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/product",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:46:54 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:46:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successfully create new product\",\n    \"data\": {\n        \"name\": \"Asus ROG\",\n        \"sku\": \"p01\",\n        \"brand\": \"Asus\",\n        \"description\": \"ROG\",\n        \"id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n        \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"updated_at\": \"2022-10-26T17:46:54.000000Z\",\n        \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n        \"variants\": [\n            {\n                \"id\": \"88e396cb-1d97-4dfb-9db5-722a40c5a6cb\",\n                \"name\": \"RAM 16\",\n                \"sku\": \"p01\",\n                \"price\": 100000,\n                \"product_id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n                \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                \"deleted_by\": null,\n                \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n                \"updated_at\": \"2022-10-26T17:46:54.000000Z\",\n                \"deleted_at\": null\n            }\n        ]\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "fail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n    \"sku\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n    \"brand\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n    \"description\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n    \"variants\": [\r\n        {\r\n            \"name\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n            \"sku\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n            \"price\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/product",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:51:41 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:51:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation fail\",\n    \"data\": null,\n    \"error\": {\n        \"name\": [\n            \"The name may not be greater than 100 characters.\"\n        ],\n        \"sku\": [\n            \"The sku may not be greater than 100 characters.\"\n        ],\n        \"brand\": [\n            \"The brand may not be greater than 100 characters.\"\n        ],\n        \"description\": [\n            \"The description may not be greater than 255 characters.\"\n        ],\n        \"variants.0.name\": [\n            \"The variants.0.name may not be greater than 100 characters.\"\n        ],\n        \"variants.0.sku\": [\n            \"The variants.0.sku may not be greater than 100 characters.\"\n        ],\n        \"variants.0.price\": [\n            \"The variants.0.price must be a number.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"p03\",\r\n    \"sku\": \"p02\",\r\n    \"brand\": \"p02\",\r\n    \"description\": \"p12\",\r\n    \"variants\": [\r\n        {\r\n            \"name\": \"v01\",\r\n            \"sku\": \"v01\",\r\n            \"price\": 1000\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/product/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4e8d71e1-01cc-4b31-a502-2e485423b7eb"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Torabika Duo\",\r\n    \"sku\": \"p02\",\r\n    \"brand\": \"Torabika\",\r\n    \"description\": \"Duo\",\r\n    \"variants\": [\r\n        {\r\n            \"name\": \"Less Sugar\",\r\n            \"sku\": \"p02\",\r\n            \"price\": 1500\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/product/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "91cdcdcf-8f0d-4073-a5fa-8479de278e06"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:49:02 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:49:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successfully update product\",\n    \"data\": {\n        \"id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n        \"name\": \"Torabika Duo\",\n        \"sku\": \"p02\",\n        \"brand\": \"Torabika\",\n        \"description\": \"Duo\",\n        \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"deleted_by\": null,\n        \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n        \"updated_at\": \"2022-10-26T17:49:02.000000Z\",\n        \"deleted_at\": null,\n        \"variants\": [\n            {\n                \"id\": \"88e396cb-1d97-4dfb-9db5-722a40c5a6cb\",\n                \"name\": \"RAM 16\",\n                \"sku\": \"p01\",\n                \"price\": 100000,\n                \"product_id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n                \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                \"deleted_by\": null,\n                \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n                \"updated_at\": \"2022-10-26T17:46:54.000000Z\",\n                \"deleted_at\": null\n            },\n            {\n                \"id\": \"8eb52d2a-d09e-4d6e-bc48-82eddcecc904\",\n                \"name\": \"-\",\n                \"sku\": \"-\",\n                \"price\": 0,\n                \"product_id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n                \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n                \"deleted_by\": null,\n                \"created_at\": \"2022-10-26T17:49:02.000000Z\",\n                \"updated_at\": \"2022-10-26T17:49:02.000000Z\",\n                \"deleted_at\": null\n            }\n        ]\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "fail",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n    \"sku\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n    \"brand\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n    \"description\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n    \"variants\": [\r\n        {\r\n            \"name\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n            \"sku\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \",\r\n            \"price\":  \"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum \"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/product/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "91cdcdcf-8f0d-4073-a5fa-8479de278e06"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:52:16 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:52:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation fail\",\n    \"data\": null,\n    \"error\": {\n        \"id\": [\n            \"The selected id is invalid.\"\n        ],\n        \"name\": [\n            \"The name may not be greater than 100 characters.\"\n        ],\n        \"sku\": [\n            \"The sku may not be greater than 100 characters.\"\n        ],\n        \"brand\": [\n            \"The brand may not be greater than 100 characters.\"\n        ],\n        \"description\": [\n            \"The description may not be greater than 255 characters.\"\n        ],\n        \"variants.0.name\": [\n            \"The variants.0.name may not be greater than 100 characters.\"\n        ],\n        \"variants.0.sku\": [\n            \"The variants.0.sku may not be greater than 100 characters.\"\n        ],\n        \"variants.0.price\": [\n            \"The variants.0.price must be a number.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"p01\",\r\n    \"sku\": \"p01\",\r\n    \"brand\": \"p01\",\r\n    \"description\": \"p1\",\r\n    \"variants\": [\r\n        {\r\n            \"name\": \"v01\",\r\n            \"sku\": \"v01\",\r\n            \"price\": 1000\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/product/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "91cdcdcf-8f0d-4073-a5fa-8479de278e06"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"p01\",\r\n    \"sku\": \"p01\",\r\n    \"brand\": \"p01\",\r\n    \"description\": \"p1\",\r\n    \"variants\": [\r\n        {\r\n            \"name\": \"v01\",\r\n            \"sku\": \"v01\",\r\n            \"price\": 1000\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/product/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "91cdcdcf-8f0d-4073-a5fa-8479de278e06"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:49:23 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:49:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successfully delete product\",\n    \"data\": {\n        \"id\": \"91cdcdcf-8f0d-4073-a5fa-8479de278e06\",\n        \"name\": \"Torabika Duo\",\n        \"sku\": \"p02\",\n        \"brand\": \"Torabika\",\n        \"description\": \"Duo\",\n        \"created_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"updated_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"deleted_by\": \"5297a345-6981-4dd8-99e4-2e6a372db45c\",\n        \"created_at\": \"2022-10-26T17:46:54.000000Z\",\n        \"updated_at\": \"2022-10-26T17:49:23.000000Z\",\n        \"deleted_at\": \"2022-10-26T17:49:23.000000Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "fail",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"p01\",\r\n    \"sku\": \"p01\",\r\n    \"brand\": \"p01\",\r\n    \"description\": \"p1\",\r\n    \"variants\": [\r\n        {\r\n            \"name\": \"v01\",\r\n            \"sku\": \"v01\",\r\n            \"price\": 1000\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/product/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "91cdcdcf-8f0d-4073-a5fa-8479de278e06"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:49:41 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Oct 2022 17:49:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation fail\",\n    \"data\": null,\n    \"error\": {\n        \"id\": [\n            \"The selected id is invalid.\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
