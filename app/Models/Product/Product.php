@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class User extends Authenticatable implements JWTSubject
+class Product extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,16 +18,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
+        'name', 'sku', 'brand', "description",
     ];
 
     /**
@@ -37,9 +28,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'id' => 'string',
-        'email_verified_at' => 'datetime',
     ];
-
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -62,8 +51,6 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $primaryKey = 'id';
 
-
-
     /**
      * The "boot" method of the model.
      *
@@ -73,19 +60,30 @@ class User extends Authenticatable implements JWTSubject
     {
         parent::boot();
 
+
         self::creating(function ($model) {
+            $user = Auth::user();
             $model->id = $model->id ?? Str::uuid();
+            $model->created_by = $user->id ?? null;
+            $model->updated_by = $user->id ?? null;
+        });
+
+        static::updating(function ($model) {
+            $user = Auth::user();
+            $model->updated_by = $user->id ?? null;
+        });
+
+        static::deleting(function ($model) {
+            $user = Auth::user();
+            $model->deleted_by = $user->id ?? null;
         });
     }
 
-
-    public function getJWTIdentifier()
+    /**
+     * the variants of product.
+     */
+    public function variants()
     {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
+        return $this->hasMany(ProductVariant::class);
     }
 }
